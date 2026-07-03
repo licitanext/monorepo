@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | grep -qE '(services/hunter-core/src|apps/mobile/lib)' && echo '🛡️ SRD: verificá alineación con ../business-model/srd/claude-directive.yml (T0: J3 pipeline, J8 autopsias, J9 checkout, J1 catálogo manual · R2: toda recomendación cita fuente · R4: recepción ≠ apertura)' || true"
+          }
+        ]
+      }
+    ]
+  }
+}
