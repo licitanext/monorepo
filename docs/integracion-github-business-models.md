@@ -53,6 +53,18 @@ Evaluado 2026-07-03 como candidato para el análisis de monorepos: **no aplica d
 
 **Confirmado que hay que construir desde cero:** walker del árbol del repo (Contents API / `git/trees`), parser de markdown del formato business-model-toolkit, extracción de catálogo, mapeo UNSPSC.
 
+## Análisis de dojo-agent-openclaw-plugin — EL GAP SE CIERRA
+
+Evaluado 2026-07-03. **Este plugin tiene el walker + lectura de contenidos reales** que faltaban, y un hallazgo mayor: **dojo es el PRODUCTOR de los directorios `business/`** que LicitaNext consume — su tool `dojo_gh_bmc_write` (`src/tools/launchpad/gh-bmc-write.ts`) escribe el BMC con layout fijo (`business/01-problema-hipotesis/*.md`, `02-solucion-validacion/*.md`, `03-ejecucion-aceleracion/*.md`, `README.md`). El parser trabaja contra un esquema estable, no contra texto libre.
+
+**Tools verificadas como implementadas** (OpenClaw plugin SDK, schemas TypeBox, `GitHubService` en `src/lib/github.ts`, 1074 líneas):
+- `dojo_github_repo_tree` → `getRepoTree` (Git Trees API `recursive=1`, cap 1000 entradas) — el walker.
+- `dojo_github_file_read` → `getFileContent` (Contents API, base64→utf8, cap 500KB) — el reader.
+- `dojo_github_code_search`, `pr_read/list`, `commits`, `review_post/reply`, `gh_bmc_write`, `skill_write` — todas reales (contraste: el `repo_tree` de bifrost-keeper era stub).
+- **Auth**: GitHub App (JWT RS256 → installation token con caché+refresh, env `DOJO_CODE_REVIEWER_APP_*`) — idéntica a nuestra decisión GitHub App + Contents:read.
+
+**Decisión de integración (recomendación aceptada)**: portar a Python en hunter-core los 3 métodos (`getInstallationToken`, `getRepoTree`, `getFileContent`) — ~150 líneas con PyJWT + httpx, sin acoplamiento a OpenClaw. NO montar el Gateway completo solo para leer repos. El parser de markdown→catálogo se escribe nuevo contra el esquema de `gh-bmc-write.ts`, soportando ambos layouts: `business/` (formato dojo) y `business-model/` (formato portafolio).
+
 ## Pendientes
 
 - Crear la GitHub App (nombre, permisos Contents:read, webhook URL) — requiere decidir org propietaria.
