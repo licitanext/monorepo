@@ -1,0 +1,78 @@
+# ==============================================================================
+# LicitaNext monorepo — .gitignore
+# ==============================================================================
+
+# --- General / OS / Editores ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.iml
+.env
+.env.*
+!.env.example
+
+# --- Flutter / Dart (apps/mobile) ---
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/build/
+**/generated_plugin_registrant.dart
+apps/mobile/.flutter-plugins*
+apps/mobile/ios/Flutter/Flutter.framework
+apps/mobile/ios/Flutter/Flutter.podspec
+apps/mobile/ios/Pods/
+apps/mobile/android/.gradle/
+apps/mobile/android/local.properties
+apps/mobile/android/key.properties
+apps/mobile/android/app/google-services.json
+apps/mobile/linux/flutter/ephemeral/
+apps/mobile/**/*.g.dart
+coverage/
+*.lcov
+
+# --- Python (services/hunter-core) ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+*.egg
+.venv/
+venv/
+.env-venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+
+# --- Terraform ---
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+override.tf
+override.tf.json
+
+# --- Kubernetes / secretos ---
+**/secret*.yaml
+!**/secret*.example.yaml
+kubeconfig
+*.kubeconfig
+
+# --- Contenedores ---
+.docker/
+
+# --- Logs ---
+logs/
+*.log

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hunter-core
+  labels:
+    app: hunter-core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hunter-core
+  template:
+    metadata:
+      labels:
+        app: hunter-core
+    spec:
+      containers:
+        - name: hunter-core
+          # Imagen construida y cargada en minikube (ver infrastructure/scripts).
+          image: localhost/licitanext-hunter-core:dev
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
