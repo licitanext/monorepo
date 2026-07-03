@@ -70,3 +70,9 @@ monorepo/
 unidireccionales) y **Atomic Design** para la UI compartida en `shared/ui/`
 (`atoms` → `molecules` → `organisms` → `templates`). State management
 recomendado: **Riverpod** (o **Air Framework** para escala enterprise).
+
+## Nota de seguridad — mcp.json
+
+`mcp.json` se commitea SIN secretos (env vacío, paquetes con versión pineada). Las API keys
+(p.ej. CONTEXT7_API_KEY) se inyectan por variable de entorno del shell o en `mcp.local.json`
+(gitignoreado). NO replicar la convención de leer secretos desde mcp.json con jq.

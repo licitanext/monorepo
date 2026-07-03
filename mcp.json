@@ -8,10 +8,8 @@
     },
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"],
-      "env": {
-        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
-      }
+      "args": ["-y", "@upstash/context7-mcp@3.2.2"],
+      "env": {}
     }
   }
 }
