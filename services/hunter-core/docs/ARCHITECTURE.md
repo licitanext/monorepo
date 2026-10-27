@@ -53,7 +53,7 @@ que cruzar contra los carteles de SICOP. El pipeline planeado:
    de los datos abiertos SICOP y puntuar la relevancia.
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph IN["Input: portafolio"]
         BM["business-model/<br/>01-problema-hipotesis/<br/>02-solucion-validacion/ (BMC, segmentos)<br/>personas.yml"]
     end
