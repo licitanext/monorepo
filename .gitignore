@@ -80,3 +80,9 @@ logs/
 # MCP: los secretos van en el entorno o en mcp.local.json (nunca en mcp.json commiteado)
 mcp.local.json
 .superpowers/
+
+# Agent / git worktrees (transient, never committed)
+.agents/
+.agents/worktrees/
+.worktrees/
+.claude/worktrees/
